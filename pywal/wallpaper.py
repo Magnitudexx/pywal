@@ -83,6 +83,10 @@ def set_wm_wallpaper(img):
     elif shutil.which("display"):
         util.disown(["display", "-backdrop", "-window", "root", img])
 
+    elif shutil.which("swaybg"):
+        util.disown(["swaybg", "-i", img])
+
+
     else:
         logging.error("No wallpaper setter found.")
         return
@@ -126,6 +130,9 @@ def set_desktop_wallpaper(desktop, img):
         """
         util.disown(["qdbus", "org.kde.plasmashell", "/PlasmaShell",
                      "org.kde.PlasmaShell.evaluateScript", string % img])
+
+    elif "hyprland" in desktop:
+        util.disown(["hyprpaper"])
     else:
         set_wm_wallpaper(img)
 
